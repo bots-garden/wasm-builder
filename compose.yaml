@@ -21,6 +21,7 @@ services:
     init: true
     volumes:
       - ~/.ssh:/root/.ssh
+      - ~/.gitconfig:/etc/gitconfig
       - .:/${WORKDIR}
       - type: bind
         source: /var/run/docker.sock
