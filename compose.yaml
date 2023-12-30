@@ -1,0 +1,29 @@
+# docker compose build
+# docker compose up -d
+
+services:
+  app:
+    container_name: ${CONTAINER_NAME}
+    entrypoint:
+      - sleep
+      - infinity
+    environment:
+      - ABOUT="Wasm Environment"
+    build:         
+      args:
+        - GO_ARCH=${GO_ARCH}
+        - GO_VERSION=${GO_VERSION}
+        - TINYGO_ARCH=${TINYGO_ARCH}
+        - TINYGO_VERSION=${TINYGO_VERSION}
+        - USER_NAME=${USER_NAME}
+      context: ./.docker
+      dockerfile: Dockerfile
+    init: true
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - .:/${WORKDIR}
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+#    ports:
+#      - 8080:8080
